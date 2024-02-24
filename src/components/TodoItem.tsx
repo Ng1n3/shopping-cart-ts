@@ -1,16 +1,37 @@
 import React, { useState } from "react";
 
-
-const TodoItem = ({cart}) => {
-  const [count, setCount] = useState<number>(0)
-
-  return(
-    <>
-    <li>
-      <h3></h3>
-    </li>
-    </>
-  ) 
+interface TodoItemProp {
+  cart: {
+    id: string;
+    item: string;
+    total: number;
+    selected: boolean;
+  };
 }
 
-export default TodoItem
+const TodoItem: React.FC<TodoItemProp> = ({ cart }) => {
+  const [count, setCount] = useState<number>(0);
+
+  function handleIncrement() {
+    setCount((prevCount) => prevCount + 1);
+  }
+
+  function handleDecrement() {
+    setCount((prevCount) => Math.max(prevCount - 1, 0));
+  }
+
+  return (
+    <>
+      <li className="item">
+        <h3>{cart.item}</h3>
+        <div>
+          <button onClick={handleDecrement}> - </button>
+          <span> {count} </span>
+          <button onClick={handleIncrement}> + </button>
+        </div>
+      </li>
+    </>
+  );
+};
+
+export default TodoItem;
