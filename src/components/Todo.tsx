@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { v4 as uuid } from "uuid";
 import TodoItem from "./TodoItem";
+import Footer from "./Footer";
 
 const Todo = () => {
   const [name, setName] = useState<string>("");
@@ -26,7 +27,6 @@ const Todo = () => {
       selected: false,
     };
 
-    console.log(newCart);
     handleAddCart(newCart);
     setName("");
   }
@@ -50,6 +50,7 @@ const Todo = () => {
           ))}
         </ul>
       </div>
+      <Footer carts={carts}/>
     </>
   );
 };
