@@ -13,6 +13,7 @@ const Todo = () => {
     item: string;
     total: number;
     selected: boolean;
+    total2: number;
   }
 
   function handleAddCart(cart: cartProp) {
@@ -27,16 +28,17 @@ const Todo = () => {
       item: name,
       total: 1,
       selected: false,
+      total2: 1
     };
 
-    if(!newCart.item) return;
+    if (!newCart.item) return;
 
     // console.log(newCart);
     handleAddCart(newCart);
     setName("");
   }
 
-  console.log(totalItems);
+  // console.log(totalItems);
 
   return (
     <>
@@ -56,14 +58,17 @@ const Todo = () => {
             <TodoItem
               cart={cart}
               key={cart.id}
+              setCarts={setCarts}
+              OnSetTotalItems={setTotalitems}
               onTotalChange={(newTotal) =>
                 setTotalitems((prevTotal) => prevTotal + newTotal)
               }
+              totalItems={totalItems}
             />
           ))}
         </ul>
       </div>
-      <Footer carts={carts} totalItems={totalItems}/>
+      <Footer carts={carts} totalItems={totalItems} />
     </>
   );
 };
