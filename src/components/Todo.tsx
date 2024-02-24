@@ -6,6 +6,7 @@ import Footer from "./Footer";
 const Todo = () => {
   const [name, setName] = useState<string>("");
   const [carts, setCarts] = useState<cartProp[]>([]);
+  const [totalItems, setTotalitems] = useState<number>(0);
 
   interface cartProp {
     id: string;
@@ -16,6 +17,7 @@ const Todo = () => {
 
   function handleAddCart(cart: cartProp) {
     setCarts((prevCart: cartProp[]) => [...prevCart, cart]);
+    setTotalitems((prevTotal) => prevTotal + cart.total);
   }
 
   function handleSubmit(e: FormEvent) {
@@ -27,9 +29,14 @@ const Todo = () => {
       selected: false,
     };
 
+    if(!newCart.item) return;
+
+    // console.log(newCart);
     handleAddCart(newCart);
     setName("");
   }
+
+  console.log(totalItems);
 
   return (
     <>
@@ -46,11 +53,17 @@ const Todo = () => {
         </form>
         <ul>
           {carts.map((cart) => (
-            <TodoItem cart={cart} key={cart.id} />
+            <TodoItem
+              cart={cart}
+              key={cart.id}
+              onTotalChange={(newTotal) =>
+                setTotalitems((prevTotal) => prevTotal + newTotal)
+              }
+            />
           ))}
         </ul>
       </div>
-      <Footer carts={carts}/>
+      <Footer carts={carts} totalItems={totalItems}/>
     </>
   );
 };
